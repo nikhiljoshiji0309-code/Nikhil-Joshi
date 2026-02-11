@@ -107,7 +107,7 @@
   <div>
     <img src="photo.jpg" alt="Nikhil Joshi" style="width:160px;height:160px;border-radius:50%;object-fit:cover;border:4px solid #4da3ff;box-shadow:0 10px 30px rgba(0,0,0,.4);margin-bottom:20px;">
     <h1>Hi, I'm Nikhil Joshi 👋</h1>
-    <p>Student • Beginner Developer • Anime Fan</p>
+    <p>Beginner Developer • Anime Fan</p>
     <a href="#about" class="btn">Explore</a>
   </div>
 </header>
@@ -115,7 +115,7 @@
 <section id="about" class="about">
   <h2>About Me</h2>
   <p>
-    I'm a school student who loves learning coding, creating websites, and exploring technology.
+    I'm a school student at Kendriya Vidyalaya BSF Camp Chhawla, Delhi, who loves learning coding, creating websites, and exploring technology.
     I enjoy anime and building cool projects while improving my skills every day.
   </p>
 </section>
@@ -148,9 +148,105 @@
   </div>
 </section>
 
+<section class="contact">
+  <h2>Contact</h2>
+  <p>Email: <a href="mailto:nikhil.joshi.ji0309@gmail.com" style="color:#4da3ff">nikhil.joshi.ji0309@gmail.com</a></p>
+</section>
+
+<section class="achievements">
+  <h2>Achievements</h2>
+  <div class="projects-grid">
+    <div class="project">
+      <h3>IGBC Contest 2023</h3>
+      <p>Brought ₹4 Lakhs to school in IGBC Contest 2023 through outstanding performance and participation.</p>
+    </div>
+    <div class="project">
+      <h3>Class 10 Board Result</h3>
+      <p>Scored 90% in Class 10 Board Examinations.</p>
+    </div>
+    <div class="project">
+      <h3>Other Certificates</h3>
+      <p>Participated and earned certificates in writing contests and other academic competitions.</p>
+    </div>
+  </div>
+</section>
+
 <footer>
   <p>© 2026 Nikhil Joshi | Made with ❤️</p>
 </footer>
+
+<canvas id="stars"></canvas>
+
+<script>
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let stars = [];
+const numStars = 300;
+
+for (let i = 0; i < numStars; i++) {
+  stars.push({
+    angle: Math.random() * Math.PI * 2,
+    radius: Math.random() * 2,
+    distance: Math.random() * canvas.width / 2,
+    speed: 0.002 + Math.random() * 0.004,
+    size: Math.random() * 2
+  });
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const centerX = canvas.width / 2;
+  const centerY = canvas.height / 2;
+
+  stars.forEach(star => {
+    // Galaxy swirl motion
+    star.angle += star.speed;
+    star.distance += 0.3; // warp-speed outward
+
+    const x = centerX + Math.cos(star.angle) * star.distance;
+    const y = centerY + Math.sin(star.angle) * star.distance;
+
+    // Twinkling effect
+    const opacity = 0.5 + Math.sin(Date.now() * 0.005 + star.distance) * 0.5;
+    ctx.fillStyle = `rgba(255,255,255,${opacity})`;
+
+    ctx.beginPath();
+    ctx.arc(x, y, star.size, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Reset star when too far
+    if (star.distance > canvas.width) {
+      star.distance = 0;
+      star.angle = Math.random() * Math.PI * 2;
+    }
+  });
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+</script>
+
+<style>
+#stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+</style>
 
 </body>
 </html>
